@@ -1,0 +1,23 @@
+#!/usr/bin/env php
+<?php
+
+const ROOT_PATH = __DIR__ . '/../../';
+const ROOT_PACKAGE_PATH = ROOT_PATH . '/packages';
+const ROOT_ACCESS = true;
+
+use App\Kernel;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+
+$autoloadFile = __DIR__ . '/../../vendor/autoload_runtime.php';
+if (!is_file($autoloadFile)) {
+    throw new LogicException('Symfony Runtime is missing. Try running "composer require symfony/runtime".');
+}
+
+require_once $autoloadFile;
+
+return function (array $context) {
+    \App\Services\Config::load();
+    $kernel = new Kernel($context['APP_ENV'], (bool)$context['APP_DEBUG']);
+
+    return new Application($kernel);
+};
