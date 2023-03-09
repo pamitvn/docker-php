@@ -9,12 +9,12 @@ defined('ROOT_ACCESS') or exit('Restricted Access');
 
 class Config
 {
-    protected static string $configPath = ROOT_PATH . '/config';
+    protected static string $configPath = ROOT_PACKAGE_PATH . '/config';
     protected static array $config = [];
 
     static function load()
     {
-        $scan = glob(self::$configPath . "/{,*/,*/*/,*/*/*/}{male}.php", GLOB_BRACE);
+        $scan = glob(self::$configPath . "/{,*/,*/*/,*/*/*/}*.php", GLOB_BRACE);
 
         foreach ($scan as $path) {
             $key = Str::replace([
